@@ -30,6 +30,7 @@ class EditCardBloc extends Bloc<EditCardEvent, EditCardState> {
     on<BackgroundImageChanged>(_backgroundImageChanged);
     on<BlurAmountChanged>(_blurAmountChanged);
     on<GradientChanged>(_gradientChanged);
+    on<DeleteCard>(_deleteCard);
     on<Submit>(_submit);
   }
 
@@ -96,6 +97,19 @@ class EditCardBloc extends Bloc<EditCardEvent, EditCardState> {
         status: EditCardStatus.initial,
       ),
     );
+  }
+
+  Future<void> _deleteCard(
+    DeleteCard event,
+    Emitter<EditCardState> emit,
+  ) async {
+    emit(state.copyWith(status: EditCardStatus.loading));
+    try {
+      await _cardRepository.deleteCard(state.initialCard!.id);
+      emit(state.copyWith(status: EditCardStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: EditCardStatus.failure));
+    }
   }
 
   Future<void> _submit(Submit event, Emitter<EditCardState> emit) async {

@@ -64,7 +64,21 @@ class _EditCardViewState extends State<_EditCardView> {
             actions: [
               Visibility(
                 visible: !isNewCard,
-                child: IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                child: IconButton(
+                  onPressed: () async {
+                    final isDeleted = await showAlertDialog(
+                      context: context,
+                      title: 'Are you sure',
+                      content: 'This action cannot be undone,',
+                      defaultActionText: 'delete',
+                      cancelActionText: 'cancel',
+                    );
+                    if ((isDeleted ?? false) && context.mounted) {
+                      context.read<EditCardBloc>().add(DeleteCard());
+                    }
+                  },
+                  icon: Icon(Icons.delete),
+                ),
               ),
             ],
             bottom: const TabBar(

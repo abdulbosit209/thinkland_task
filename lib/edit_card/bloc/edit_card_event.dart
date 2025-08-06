@@ -61,4 +61,6 @@ final class GradientChanged extends EditCardEvent {
   List<Object?> get props => [gradient];
 }
 
+final class DeleteCard extends EditCardEvent {}
+
 final class Submit extends EditCardEvent {}
