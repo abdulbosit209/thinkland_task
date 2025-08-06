@@ -10,7 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_colorpicker: ^1.1.0
+  flutter_web_plugins:
+    sdk: flutter
   navigation:
     path: packages/navigation
   card_repository:
@@ -22,6 +23,8 @@ dependencies:
   flutter_bloc: ^9.1.1
   equatable: ^2.0.7
   shared_preferences: ^2.5.3
+  mask_text_input_formatter: ^2.9.0
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:

@@ -9,8 +9,8 @@ part 'card_model.g.dart';
 @JsonSerializable()
 class CardModel extends Equatable {
   CardModel({
-    required this.cardNumber,
-    required this.validThru,
+    this.cardNumber = '',
+    this.validThru = '',
     String? id,
     this.cardName,
     this.backGroundImage,
@@ -23,11 +23,31 @@ class CardModel extends Equatable {
 
   final String id;
   final String? cardName;
-  final int cardNumber;
-  final int validThru;
+  final String cardNumber;
+  final String validThru;
   final List<int>? backGroundImage;
   final double? blurAmount;
-  final Gradient? gradient;
+  final GradientModel? gradient;
+
+  CardModel copyWith({
+    String? id,
+    String? cardName,
+    String? cardNumber,
+    String? validThru,
+    List<int>? backGroundImage,
+    double? blurAmount,
+    GradientModel? gradient,
+  }) {
+    return CardModel(
+      id: id ?? this.id,
+      cardName: cardName ?? this.cardName,
+      cardNumber: cardNumber ?? this.cardNumber,
+      validThru: validThru ?? this.validThru,
+      backGroundImage: backGroundImage ?? this.backGroundImage,
+      blurAmount: blurAmount ?? this.blurAmount,
+      gradient: gradient ?? this.gradient,
+    );
+  }
 
   Map<String, dynamic> toJson() => _$CardModelToJson(this);
 
@@ -42,55 +62,23 @@ class CardModel extends Equatable {
     gradient,
   ];
 
-  CardModel copyWith({
-    String? id,
-    int? cardNumber,
-    String? cardName,
-    int? validThru,
-    List<int>? backGroundImage,
-    double? blurAmount,
-    Gradient? gradient,
-  }) {
-    return CardModel(
-      id: id ?? this.id,
-      cardName: cardName ?? this.cardName,
-      cardNumber: cardNumber ?? this.cardNumber,
-      validThru: validThru ?? this.validThru,
-      backGroundImage: backGroundImage ?? this.backGroundImage,
-      blurAmount: blurAmount ?? this.blurAmount,
-      gradient: gradient ?? this.gradient,
-    );
-  }
-
-  @override
-  bool get stringify => true;
 }
 
 @JsonSerializable()
-class Gradient extends Equatable {
-  const Gradient({
-    required this.begin,
-    required this.end,
-  });
+class GradientModel extends Equatable {
+  const GradientModel({required this.colors});
 
-  factory Gradient.fromJson(Map<String, dynamic> json) =>
-      _$GradientFromJson(json);
+  factory GradientModel.fromJson(Map<String, dynamic> json) =>
+      _$GradientModelFromJson(json);
 
-  final int begin;
-  final int end;
+  final List<int> colors;
 
-  Map<String, dynamic> toJson() => _$GradientToJson(this);
+  Map<String, dynamic> toJson() => _$GradientModelToJson(this);
 
   @override
-  List<Object> get props => [begin, end];
+  List<Object> get props => [colors];
 
-  Gradient copyWith({int? begin, int? end}) {
-    return Gradient(
-      begin: begin ?? this.begin,
-      end: end ?? this.end,
-    );
+  GradientModel copyWith({List<int>? colors}) {
+    return GradientModel(colors: colors ?? this.colors);
   }
-
-  @override
-  bool get stringify => true;
 }

@@ -64,7 +64,7 @@ class LocalCardRepository extends CardRepository {
 
   @override
   Future<void> saveCard(CardModel card) {
-    final cards = allCards;
+    final cards = List<CardModel>.from(allCards);
     final cardIndex = cards.indexWhere((t) => t.id == card.id);
     if (cardIndex >= 0) {
       cards[cardIndex] = card;
@@ -78,7 +78,7 @@ class LocalCardRepository extends CardRepository {
 
   @override
   Future<void> deleteCard(String id) {
-    final cards = allCards;
+    final cards = List<CardModel>.from(allCards);
     final cardIndex = cards.indexWhere((t) => t.id == id);
     if (cardIndex == -1) {
       throw CardNotFoundException();

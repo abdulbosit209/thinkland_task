@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thinkland_task/config/locator_config.dart';
+import 'package:thinkland_task/startup/bloc_observer.dart';
 
 /// Represents different states of app initialization
 sealed class AppState {
@@ -34,6 +36,7 @@ class StartupViewModel {
     try {
       setup();
       await locator.allReady();
+      Bloc.observer = AppBlocObserver();
       appStateNotifier.value = const AppInitialized();
     } catch (e, st) {
       appStateNotifier.value = AppInitializationError(e, st);

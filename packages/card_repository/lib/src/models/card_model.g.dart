@@ -7,8 +7,8 @@ part of 'card_model.dart';
 // **************************************************************************
 
 CardModel _$CardModelFromJson(Map<String, dynamic> json) => CardModel(
-  cardNumber: (json['cardNumber'] as num).toInt(),
-  validThru: (json['validThru'] as num).toInt(),
+  cardNumber: json['cardNumber'] as String? ?? '',
+  validThru: json['validThru'] as String? ?? '',
   id: json['id'] as String?,
   cardName: json['cardName'] as String?,
   backGroundImage: (json['backGroundImage'] as List<dynamic>?)
@@ -17,7 +17,7 @@ CardModel _$CardModelFromJson(Map<String, dynamic> json) => CardModel(
   blurAmount: (json['blurAmount'] as num?)?.toDouble(),
   gradient: json['gradient'] == null
       ? null
-      : Gradient.fromJson(json['gradient'] as Map<String, dynamic>),
+      : GradientModel.fromJson(json['gradient'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$CardModelToJson(CardModel instance) => <String, dynamic>{
@@ -30,12 +30,12 @@ Map<String, dynamic> _$CardModelToJson(CardModel instance) => <String, dynamic>{
   'gradient': instance.gradient,
 };
 
-Gradient _$GradientFromJson(Map<String, dynamic> json) => Gradient(
-  begin: (json['begin'] as num).toInt(),
-  end: (json['end'] as num).toInt(),
-);
+GradientModel _$GradientModelFromJson(Map<String, dynamic> json) =>
+    GradientModel(
+      colors: (json['colors'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
+    );
 
-Map<String, dynamic> _$GradientToJson(Gradient instance) => <String, dynamic>{
-  'begin': instance.begin,
-  'end': instance.end,
-};
+Map<String, dynamic> _$GradientModelToJson(GradientModel instance) =>
+    <String, dynamic>{'colors': instance.colors};

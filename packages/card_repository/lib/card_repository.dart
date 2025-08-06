@@ -2,3 +2,4 @@
 library;
 
 export 'src/card_repository.dart';
+export 'src/models/card_model.dart';
